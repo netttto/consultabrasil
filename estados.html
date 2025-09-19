@@ -1,34 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Consulta Brasil - Estados</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta Brasil - Estados</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <nav class="navbar">
-      <h1>Consulta Brasil</h1>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="estados.html">Estados</a></li>
-        <li><a href="cep.html">Consulta CEP</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <section class="intro">
-      <h2>Estados do Brasil</h2>
-      <p>Confira a lista de estados brasileiros e suas respectivas regiões.</p>
-    </section>
+    <header>
+        <h1>Consulta Brasil</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="estado.html">Estados</a>
+            <a href="cep.html">Consultar CEP</a>
+        </nav>
+    </header>
 
-    <section id="estados-container" class="cards-container">
-    </section>
-  </main>
-  <footer>
-    <p>Sistemas de Informação 2022 - UFRA/CCP</p>
-  </footer>
-  <script src="script.js"></script>
+    <main>
+        <h2>Lista de Estados do Brasil</h2>
+        <div id="estados-container" class="card-container"></div>
+    </main>
+
+    <footer>
+        <p>Projeto Front-end - Consulta Brasil</p>
+    </footer>
+
+    <script>
+        async function carregarEstados() {
+            try {
+                const response = await fetch("https://brasilapi.com.br/api/ibge/uf/v1");
+                const estados = await response.json();
+
+                const container = document.getElementById("estados-container");
+                container.innerHTML = "";
+
+                estados.forEach(estado => {
+                    const card = document.createElement("div");
+                    card.classList.add("card");
+
+                    card.innerHTML = `
+                        <h3>${estado.nome} (${estado.sigla})</h3>
+                        <p>Região: ${estado.regiao.nome}</p>
+                    `;
+
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Erro ao carregar estados:", error);
+            }
+        }
+
+        carregarEstados();
+    </script>
 </body>
 </html>

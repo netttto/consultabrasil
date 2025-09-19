@@ -55,6 +55,28 @@ main {
   transition: background 0.3s;
 }
 
+/* Estilização do menu */
+nav {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    background-color: #009100; /* azul padrão */
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background 0.3s;
+    font-weight: bold;
+}
+
+nav a:hover {
+    background-color: #009100; /* azul mais escuro no hover */
+}
+
 .btn:hover {
   background: #af8000;
 }
